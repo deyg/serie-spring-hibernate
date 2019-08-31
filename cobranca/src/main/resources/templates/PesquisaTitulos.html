@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html 	xmlns="http://www.w3.org/1999/xhtml"
+		xmlns:th="http://www.thymeleaf.org"
+		xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+		layout:decorator="LayoutPadrao">
+
+<head>	
+	<title>Pesquisa de Títulos</title>	
+</head>
+
+<section layout:fragment="conteudo">
+
+	<div layout:include="MensagemGeral"></div>
+
+	<div class="panel panel-default">
+	  <div class="panel-heading">
+		 <div class="clearfix">	 
+		    <h1 class="panel-title aw-titulo-panel">Pesquisa de Títulos</h1>
+		    <a class="btn btn-link aw-link-panel" href="/titulos/novo">Novo Título</a>
+		</div>
+	  </div>
+	  
+	  <div class="panel-body">
+	  	
+	  	<!-- 
+	  	<div class="aw-botao-teste">
+	  		<button onclick="testarJavascriptAlert();">Teste JavaScript Personalizado</button>
+	  	</div>
+	    -->
+	   
+	  	<table class="table table-striped table-bordered">
+	  		<thead>
+	  			<tr>
+	  				<th class="text-center col-md-1">#</th>
+	  				<th class="">descrição</th>
+	  				<th class="text-center col-md-2">data de vencimento</th>
+	  				<th class="text-right col-md-2">valor</th>
+	  				<th class="text-center col-md-2">status</th>
+	  				<th class="col-md-1"></th>
+	  			</tr>
+	  		</thead>
+	  		
+	  		<tbody>
+	  		
+	  			<tr th:each="titulo : ${titulos}">
+	  				<td class="text-center" th:text="${titulo.codigo}"></td>
+	  				<td class="text-left" th:text="${titulo.descricao}"></td>
+	  				<td class="text-center" th:text="${{titulo.dataVencimento}}"></td>
+	  				<td class="text-right" th:text="|R$ ${{titulo.valor}}|"></td>
+	  				
+	  				<!-- modo deselegante. avaliação longa de enum -->
+	  				<!-- 
+	  				<td class="text-center">
+	  					<span 	class="label" th:text="${titulo.status.descricao}"
+	  							th:classappend="${#strings.toString(titulo.status)
+	  							== 'PENDENTE' ? 'label-danger' : 'label-success'}">
+	  					</span> 
+	  				</td>
+	  				 -->
+	  				 
+	  				<!-- modo elegante. pergunte ao objeto. -->	  				 
+	  				<td class="text-center">
+	  					<span 	class="label" th:text="${titulo.status.descricao}"
+	  							th:classappend="${titulo.pendente ? 'label-danger' : 'label-success'}">
+	  					</span> 
+	  				</td>
+	  				
+	  				
+	  				<td class="text-center">
+	  					<a class="btn btn-link btn-xs" th:href='@{/titulos/{codigo}(codigo=${titulo.codigo})}'>
+	  						<span class="glyphicon glyphicon-pencil"></span>
+	  					</a>
+	  					
+		  				<!-- Recurso para recuperar o codigo do titulo e a descricao no javascript:
+		  				th:attr="data-codigo=${titulo.codigo}, data-descricao=${titulo.descricao}"" -->
+	  					<a class="btn btn-link btn-xs" data-toggle="modal" data-target="#confirmacaoExclusaoModal"
+	  						th:attr="data-codigo=${titulo.codigo}, data-descricao=${titulo.descricao}">
+	  						<span class="glyphicon glyphicon-remove"></span>
+	  					</a>
+	  				</td>
+	  			</tr>
+	  			
+	  			<tr>
+	  				<td colspan="6" th:if="${#lists.isEmpty(titulos)}">Nenhum título foi encontrado.</td> 
+	  				<!--  <td colspan="6">Nenhum título foi encontrado.</td>  -->
+	  			</tr>
+	  				  		
+	  		</tbody>
+	  	</table>
+	  	
+	  </div>
+	  
+	  <div layout:include="DialogoConfirmacaoExclusao"></div>
+  	  	  
+	</div>
+	
+<!-- incluir javascript personalizado aqui -->
+	
+</section>
+
+
+	  
+</html>

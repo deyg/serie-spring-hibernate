@@ -1,0 +1,28 @@
+.navbar-brand{
+	padding-top: 0px;
+}
+
+.panel-default{
+	margin-left: 15px;
+	margin-right: 15px;	
+}
+
+.alert{
+	margin-left: 15px;
+	margin-right: 15px;	
+}
+
+.aw-link-panel{
+	float: right;
+	padding: 0;
+}
+
+.aw-titulo-panel{
+	float: left;
+	padding-top: 2px;
+}
+
+.aw-botao-teste{
+	margin-bottom: 15px;
+}
+
